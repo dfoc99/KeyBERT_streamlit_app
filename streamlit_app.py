@@ -20,9 +20,6 @@ with open("final_keywords_aligned.txt", "r") as file:
         # Append the item to the documents_labels list
         final_keywords_aligned.append(line_list)
 
-print(len(final_keywords_aligned))
-
-# Assuming `KeyBERT_final_df` and `final_keywords_aligned` are defined
 # Create a dictionary
 data = {
     "Abstract": KeyBERT_final_df["Abstract"],
@@ -40,7 +37,8 @@ df = pd.DataFrame(data)
 st.title("Physics Concepts Data Dashboard")
 # Year Selector
 years = df["Year"].unique()
-year = st.slider("Select Year for Treemap", min_value=min(years), max_value=max(years), value=2021, key='treemap_slider')
+years = years.astype(int)  # Ensure years are int type
+year = st.slider("Select Year for Treemap", min_value=int(min(years)), max_value=int(max(years)), value=2021, step=1, key='treemap_slider')
 
 # Filter dataframe based on selected year
 filtered_df = df[df["Year"] == year]
@@ -102,7 +100,7 @@ st.pyplot(fig)
 
 ################################################################################
 
-year_2 = st.slider("Select Year for Journal Analysis", min_value=min(years), max_value=max(years), value=2021, key='journal_slider')
+year_2 = st.slider("Select Year for Journal Analysis", min_value=int(min(years)), max_value=int(max(years)), value=2021, step=1, key='journal_slider')
 
 st.title("Journal Published through Time")
 
@@ -142,4 +140,3 @@ if not filtered_counts.empty:
     st.pyplot(fig2)
 else:
     st.write("No journals have more than {} articles published in the selected year.".format(threshold))
-

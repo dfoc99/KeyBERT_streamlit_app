@@ -7,7 +7,6 @@ import squarify
 import textwrap
 import numpy as np
 from matplotlib.patheffects import withStroke
-from matplotlib import pyplot as plt
 import seaborn as sns
 
 
